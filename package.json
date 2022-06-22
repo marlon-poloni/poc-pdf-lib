@@ -1,9 +1,11 @@
 {
    "type": "module",
    "dependencies": {
+      "node-fetch": "^3.2.6",
       "pdf-lib": "^1.17.1"
    },
    "scripts": {
-    "start": "node ./index.js"
+      "start": "node ./index.js",
+      "debug": "node --trace-uncaught ./index.js"
    }
 }

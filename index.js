@@ -4,6 +4,8 @@ import {
   StandardFonts,
   rgb,
 } from 'pdf-lib';
+import fetch from "node-fetch";
+
 
 const MOCK_TESTE = {
   header: {
@@ -17,32 +19,108 @@ const MOCK_TESTE = {
       sell_detais: 12321312312,
       payment_methods: [
           { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          { name: "Mastercard", details: "Débito 350,00" }
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" },
+          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
+          // { name: "Mastercard", details: "Débito 350,00" }
       ],
       sell_value: "1000.00",
       discount: "0.00"
   },
   itens: [
       { name: "XPTO1", details: "31231231541212312", value: 100},
-      { name: "XPTO2", details: "31231212312", value: 100},
-      { name: "XPTO3", details: "316554665461212312", value: 100},
-      { name: "XPTO4", details: "31237546456452312312", value: 100},
-      { name: "XPTO5", details: "3123124532543243212", value: 100},
-      { name: "XPTO6", details: "31231231541524432", value: 100},
-      { name: "XPTO4", details: "31237546456452312312", value: 100},
-      { name: "XPTO5", details: "3123124532543243212", value: 100},
-      { name: "XPTO6", details: "31231231541524432", value: 100},
-      { name: "XPTO6", details: "31231231541524432", value: 100},
-      { name: "XPTO1", details: "31231231541212312", value: 100},
-      { name: "XPTO2", details: "31231212312", value: 100},
-      { name: "XPTO3", details: "316554665461212312", value: 100},
-      { name: "XPTO4", details: "31237546456452312312", value: 100},
-      { name: "XPTO5", details: "3123124532543243212", value: 100},
-      { name: "XPTO6", details: "31231231541524432", value: 100},
-      { name: "XPTO4", details: "31237546456452312312", value: 100},
-      { name: "XPTO5", details: "3123124532543243212", value: 100},
-      { name: "XPTO6", details: "31231231541524432", value: 100},
-      { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO4", details: "31237546456452312312", value: 100},
+      // { name: "XPTO5", details: "3123124532543243212", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO6", details: "31231231541524432", value: 100},
+      // { name: "XPTO1", details: "31231231541212312", value: 100},
+      // { name: "XPTO2", details: "31231212312", value: 100},
+      // { name: "XPTO3", details: "316554665461212312", value: 100},
   ]
 }
 const files_dir = 'outputs';
@@ -56,7 +134,7 @@ const [HelveticaFont, HelveticaFontBold, CourierBoldOblique] = await Promise.all
 ])
  
 const page = pdfDoc.addPage();
-const estimate_height = 260 + (MOCK_TESTE.sub_header.payment_methods?.length ||  1 * 20) + (MOCK_TESTE.itens?.length ||  1) * 30;
+const estimate_height = 260 + ((MOCK_TESTE.sub_header.payment_methods?.length ||  1) * 10) + (MOCK_TESTE.itens?.length ||  1) * 30;
 page.setWidth(302.36)
 page.setHeight(estimate_height);
 
@@ -212,20 +290,22 @@ page.drawLine({ start: { x: 30, y: init_table_y}, end: { x: 30, y: y_pixel}, thi
 page.drawLine({ start: { x: width - 30, y: init_table_y}, end: { x: width - 30, y: y_pixel}, thickness: 0.5, dashArray: [3, 3]});
 
 // footer
-y_pixel = y_pixel - 45;
-page.drawText(`tiba`, {
-  x: width - 100,
+y_pixel = y_pixel - 43;
+const jpgImageBytes = await fetch("https://lh3.googleusercontent.com/iTw3ZA-O3TMmRG-QSjO2Il2fIzdFReTzNT8JQYdUw2W3kEcCQR_Juw7N_4aY_QYBK_aNeEZ7ZvqncBRHG_6B-dtupYK88JrdzoO8hWq94jybG7bEtH4ZrudLjNzy3H3LOgsel3b2-0NcPXSr-L-UWIE5L61xxA2MLDboas8Icf36nFja6Jf5qml0qnYAgQyCqzve12l6RyNk2MmvBbS0c0B4vD13DHKs1661tb3XkNFGNRZxrBCvxy_CgTESCDSJ6l41ls3M9pRcJwyDsB0_Fm6Nm-7G3LjcXiq80ySR8e14TC9PInjtNFKyP23rIz6p968HN5h3Nrk4E68lGh-TApVbeGzG1MOTAWy6Yx-WeD5LbSLvMb7sGrBkAKzvcF1xLElHpcNLHmLLvWsQpgLLgGWthh_v7dD_mwdmY2WEWIbFbenBiHf7rEPMeHJjyLJU0GwDabWrauoHnHx07ueo40g-xD5omxreGKK8ONlHj3b-oFhtbi2CrLAJC0McQmU8PPkUceMWFsxTRxWYrbtI3QESjF4MV0-1ZwYCHM-fXJ93qSLZiJg3XQ-JyXfvSmab-LcnMKMRZcM-OjqqoXfeFvf1Gcuw4dhpFOe49t7MUOsIL43ZYDcXGnJd8ErW13DyLholng9B4eGCDF808r8QvpChZTvljTOgfePRQ7g43DGtA_gNUVpOYVFdNmAJZvX1Sso4lyGGrS65mqoHsYcQvvG6hsrucchIv16dpQvvT3w_5zj1i7FU5RYhPsz8ttuj1J-GdB6Fi0hKvlNCbIPTTZjQZjBDn_VF=w112-h52-no?authuser=0").then((res) => (res.arrayBuffer()));
+const jpgImage = await pdfDoc.embedPng(jpgImageBytes)
+page.drawImage(jpgImage, {
+  x: width - 90,
   y: y_pixel,
-  size: h1,
-  font: CourierBoldOblique,
-  color: rgb(0,0,0),
-})
+  width: 55,
+  height: 25
+});
 
 // create buffer from pdf
 const pdfBytes = await pdfDoc.save();
 
-// crate file from buffer
+// create folder if not exists
 if(!fs.existsSync(`./${files_dir}`)) {
   fs.mkdirSync(`./${files_dir}`)
 }
+// crate file from buffer
 fs.writeFile(`./${files_dir}/out_${Date.now()}.pdf`, pdfBytes, (err) => (err ? console.error(err): console.log("Success!")));
