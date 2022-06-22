@@ -6,6 +6,8 @@ import {
 } from 'pdf-lib';
 import fetch from "node-fetch";
 
+const PAYMENT_METHODS_LENGTH = 5;
+const PRODUCTS_LENGTH = 5;
 
 const MOCK_TESTE = {
   header: {
@@ -17,111 +19,17 @@ const MOCK_TESTE = {
   sub_header: {
       is_fiscal: false,
       sell_detais: 12321312312,
-      payment_methods: [
-          { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" },
-          // { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" },
-          // { name: "Mastercard", details: "Débito 350,00" }
-      ],
+      payment_methods: [...Array(PAYMENT_METHODS_LENGTH).keys()].map((_, index) => (
+        index %2 === 0 
+          ? { name: "Mastercard", details: "Crédito parcelado 10x R$ = 650,00" } 
+          : { name: "Mastercard", details: "Débito 350,00" }          
+      )),
       sell_value: "1000.00",
       discount: "0.00"
   },
-  itens: [
-      { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO4", details: "31237546456452312312", value: 100},
-      // { name: "XPTO5", details: "3123124532543243212", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO6", details: "31231231541524432", value: 100},
-      // { name: "XPTO1", details: "31231231541212312", value: 100},
-      // { name: "XPTO2", details: "31231212312", value: 100},
-      // { name: "XPTO3", details: "316554665461212312", value: 100},
-  ]
+  itens: [...Array(PRODUCTS_LENGTH).keys()].map((_, key) => (
+    { name: `XPTO${key + 1}`, details: "31231231541212312", value: Math.round(Math.random() * (Math.round(Math.random() * 10000)))}
+  ))
 }
 const files_dir = 'outputs';
 
@@ -253,6 +161,8 @@ page.drawText("Itens da venda:", {
 
 // itens list
 var init_table_y = 550;
+const max_length_price = Math.max(...MOCK_TESTE.itens.map(obj => `${obj?.value}`.length));
+
 MOCK_TESTE.itens.forEach((data, index) => {
   if(index == 0) {
     y_pixel = y_pixel - 5;
@@ -276,7 +186,7 @@ MOCK_TESTE.itens.forEach((data, index) => {
     color: rgb(0,0,0),
   })
   page.drawText(`R$ ${data.value}`, {
-    x: (width - 200 / `${data.value}`.length),
+    x: width - (65 + ( 3 * max_length_price)),
     y: y_pixel,
     size: h3,
     font: HelveticaFont,
