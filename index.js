@@ -221,6 +221,11 @@ page.drawText(`tiba`, {
   color: rgb(0,0,0),
 })
 
+// create buffer from pdf
 const pdfBytes = await pdfDoc.save();
 
+// crate file from buffer
+if(!fs.existsSync(`./${files_dir}`)) {
+  fs.mkdirSync(`./${files_dir}`)
+}
 fs.writeFile(`./${files_dir}/out_${Date.now()}.pdf`, pdfBytes, (err) => (err ? console.error(err): console.log("Success!")));
