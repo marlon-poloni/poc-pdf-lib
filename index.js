@@ -6,8 +6,8 @@ import {
 } from 'pdf-lib';
 import fetch from "node-fetch";
 
-const PAYMENT_METHODS_LENGTH = 5;
-const PRODUCTS_LENGTH = 5;
+const PAYMENT_METHODS_LENGTH = 2;
+const PRODUCTS_LENGTH = 15;
 
 const MOCK_TESTE = {
   header: {
@@ -28,7 +28,13 @@ const MOCK_TESTE = {
       discount: "0.00"
   },
   itens: [...Array(PRODUCTS_LENGTH).keys()].map((_, key) => (
-    { name: `XPTO${key + 1}`, details: "31231231541212312", value: Math.round(Math.random() * (Math.round(Math.random() * 10000)))}
+    { 
+      name: `XPTO${key + 1} aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, 
+      details: "3123123154121212312312312333", 
+      quantity: `${["0,100Kg", 3, 1, 4 , "0,20Kg", "0,131Kg", "0,103Kg", "1 Kg", "0,1Kg", 12][Math.round(Math.random() * 10)]}`, 
+      unit_value: `${Math.round(Math.random() * 100)}`,  
+      value: `${Math.round(Math.random() * (Math.round(Math.random() * 10000)))}`
+    }
   ))
 }
 const files_dir = 'outputs';
@@ -54,7 +60,7 @@ page.drawText(MOCK_TESTE.header.company, {
   x: 30,
   y: height - 2 * h3,
   size: h3,
-  font: HelveticaFont,
+  font: HelveticaFontBold,
   color: rgb(0,0,0),
 });
 y_pixel = y_pixel - 6;
@@ -150,7 +156,12 @@ page.drawText(`R$: ${MOCK_TESTE.sub_header.discount}`, {
   font: HelveticaFontBold,
   color: rgb(0,0,0),
 })
+
+// header of itens list
 y_pixel = y_pixel - 20;
+const max_length_price = Math.max(...MOCK_TESTE.itens.map(obj => `${obj?.value}`.length));
+const max_item_x_direction = width - (65 + ( 3 * max_length_price));
+
 page.drawText("Itens da venda:", {
   x:30,
   y: y_pixel,
@@ -158,10 +169,33 @@ page.drawText("Itens da venda:", {
   font: HelveticaFont,
   color: rgb(0,0,0),
 })
+const x_qnt_item = max_item_x_direction - 80;
+page.drawText("Qtde.", {
+  x: x_qnt_item,
+  y: y_pixel,
+  size: h3,
+  font: HelveticaFontBold,
+  color: rgb(0,0,0),
+})
+const x_v_unit_item = max_item_x_direction - 52;
+page.drawText("V.Unit(R$)", {
+  x: x_v_unit_item,
+  y: y_pixel,
+  size: h3,
+  font: HelveticaFont,
+  color: rgb(0,0,0),
+})
+const x_v_tot_item = max_item_x_direction - 5;
+page.drawText("V.Total(R$)", {
+  x: x_v_tot_item,
+  y: y_pixel,
+  size: h3,
+  font: HelveticaFontBold,
+  color: rgb(0,0,0),
+})
 
-// itens list
+// itens list body
 var init_table_y = 550;
-const max_length_price = Math.max(...MOCK_TESTE.itens.map(obj => `${obj?.value}`.length));
 
 MOCK_TESTE.itens.forEach((data, index) => {
   if(index == 0) {
@@ -170,7 +204,7 @@ MOCK_TESTE.itens.forEach((data, index) => {
     page.drawLine({ start: { x: 30, y: y_pixel}, end: { x: width - 30, y: y_pixel}, thickness: 0.5, dashArray: [3, 3]});
   }
   y_pixel = y_pixel - 10;
-  page.drawText(`Produto: ${data.name}`, {
+  page.drawText(`Produto: ${data.name}`.substring(0, 42), {
     x: 35,
     y: y_pixel,
     size: h3,
@@ -178,18 +212,32 @@ MOCK_TESTE.itens.forEach((data, index) => {
     color: rgb(0,0,0),
   })
   y_pixel = y_pixel - 15;
-  page.drawText(data.details, {
+  page.drawText(data.details.substring(0, 16), {
     x: 35,
     y: y_pixel,
     size: h3,
     font: HelveticaFont,
     color: rgb(0,0,0),
   })
-  page.drawText(`R$ ${data.value}`, {
-    x: width - (65 + ( 3 * max_length_price)),
+  page.drawText(data.quantity, {
+    x: x_qnt_item,
     y: y_pixel,
     size: h3,
     font: HelveticaFont,
+    color: rgb(0,0,0),
+  })
+  page.drawText(data.unit_value, {
+    x: x_v_unit_item + 25,
+    y: y_pixel,
+    size: h3,
+    font: HelveticaFont,
+    color: rgb(0,0,0),
+  })
+  page.drawText(`R$ ${data.value}`, {
+    x: max_item_x_direction,
+    y: y_pixel,
+    size: h3,
+    font: HelveticaFontBold,
     color: rgb(0,0,0),
   })
   y_pixel = y_pixel - 5;
@@ -201,7 +249,15 @@ page.drawLine({ start: { x: width - 30, y: init_table_y}, end: { x: width - 30, 
 
 // footer
 y_pixel = y_pixel - 43;
-const jpgImageBytes = await fetch("https://lh3.googleusercontent.com/iTw3ZA-O3TMmRG-QSjO2Il2fIzdFReTzNT8JQYdUw2W3kEcCQR_Juw7N_4aY_QYBK_aNeEZ7ZvqncBRHG_6B-dtupYK88JrdzoO8hWq94jybG7bEtH4ZrudLjNzy3H3LOgsel3b2-0NcPXSr-L-UWIE5L61xxA2MLDboas8Icf36nFja6Jf5qml0qnYAgQyCqzve12l6RyNk2MmvBbS0c0B4vD13DHKs1661tb3XkNFGNRZxrBCvxy_CgTESCDSJ6l41ls3M9pRcJwyDsB0_Fm6Nm-7G3LjcXiq80ySR8e14TC9PInjtNFKyP23rIz6p968HN5h3Nrk4E68lGh-TApVbeGzG1MOTAWy6Yx-WeD5LbSLvMb7sGrBkAKzvcF1xLElHpcNLHmLLvWsQpgLLgGWthh_v7dD_mwdmY2WEWIbFbenBiHf7rEPMeHJjyLJU0GwDabWrauoHnHx07ueo40g-xD5omxreGKK8ONlHj3b-oFhtbi2CrLAJC0McQmU8PPkUceMWFsxTRxWYrbtI3QESjF4MV0-1ZwYCHM-fXJ93qSLZiJg3XQ-JyXfvSmab-LcnMKMRZcM-OjqqoXfeFvf1Gcuw4dhpFOe49t7MUOsIL43ZYDcXGnJd8ErW13DyLholng9B4eGCDF808r8QvpChZTvljTOgfePRQ7g43DGtA_gNUVpOYVFdNmAJZvX1Sso4lyGGrS65mqoHsYcQvvG6hsrucchIv16dpQvvT3w_5zj1i7FU5RYhPsz8ttuj1J-GdB6Fi0hKvlNCbIPTTZjQZjBDn_VF=w112-h52-no?authuser=0").then((res) => (res.arrayBuffer()));
+const jpgImageBytes = await Promise.resolve(
+  fetch("https://storage.googleapis.com/ms-sales/imagens%2F2a7e2a8a-46b1-4ad5-b943-ef270c5a2c73.png")
+    .then((res) => {
+      try {
+        return res.arrayBuffer()
+      } catch (e) {
+        console.log("error when getting image", [e?.message, res]);
+      }
+    }));
 const jpgImage = await pdfDoc.embedPng(jpgImageBytes)
 page.drawImage(jpgImage, {
   x: width - 90,
